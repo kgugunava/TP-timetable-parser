@@ -1,0 +1,6 @@
+ya_url = 'https://disk.yandex.ru/i/C3VDm7Vg6LIOXA'
+DATABASE = 'timetable'
+USER = 'postgres'
+PASSWORD = 'kirillgugunava123'
+HOST = '127.0.0.1'
+PORT = '5432'
