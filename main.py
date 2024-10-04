@@ -1,25 +1,27 @@
 import asyncio
-import logging
 import sys
+import logging
 from os import getenv
 
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
-from aiogram.filters import CommandStart
-from aiogram.types import Message
 
-TOKEN = "7507939349:AAGIWYDC1DGdRGpajSTRG9uUXFzH1wDUJNQ"
-# До релиза можем на этом боте все тестить: t.me/TP_parser_testing_bot
-dp = Dispatcher()
+from TP_parser_bot.handlers.user_handlers import register_user_handlers
 
 
-@dp.message(CommandStart())
-async def start_bot(message: Message) -> None:
-    await message.answer("ПРИВЕТСТВЕННОЕ СООБЩЕНИЕ ПОТОМ ДОБАВИТЬ")
+def register_handler(dp: Dispatcher) -> None:
+    register_user_handlers(dp)
 
-async def
 
 async def main() -> None:
-    bot = Bot(token=TOKEN)
+    load_dotenv() #подгружаем переменные из .env в окружение
+
+    token = getenv("BOT_TOKEN")
+    bot = Bot(token=token)
+    dp = Dispatcher()
+
+    register_handler(dp)
+
     await dp.start_polling(bot)
 
 
