@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import sys
+from os import getenv
 
 from aiogram import Bot, Dispatcher
 from aiogram.filters import CommandStart
@@ -15,9 +16,7 @@ dp = Dispatcher()
 async def start_bot(message: Message) -> None:
     await message.answer("ПРИВЕТСТВЕННОЕ СООБЩЕНИЕ ПОТОМ ДОБАВИТЬ")
 
-
-# Вся логика поидее тут
-
+async def
 
 async def main() -> None:
     bot = Bot(token=TOKEN)
