@@ -6,21 +6,16 @@ from os import getenv
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 
-from TP_parser_bot.handlers.user_handlers import register_user_handlers
-
-
-def register_handler(dp: Dispatcher) -> None:
-    register_user_handlers(dp)
+from TP_parser_bot.handlers.user_handlers import setup_handlers  # импортим все хендлеры из директории
 
 
 async def main() -> None:
-    load_dotenv() #подгружаем переменные из .env в окружение
+    load_dotenv()  # подгружаем переменные из .env в окружение
 
     token = getenv("BOT_TOKEN")
     bot = Bot(token=token)
     dp = Dispatcher()
-
-    register_handler(dp)
+    setup_handlers(dp)
 
     await dp.start_polling(bot)
 

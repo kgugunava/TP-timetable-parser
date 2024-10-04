@@ -1,12 +1,10 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-def get_main_keyboard() -> InlineKeyboardMarkup:
-    """ Дает клавиаутуру для главного меню
 
+def get_ready_keyboard() -> InlineKeyboardMarkup:
+    """ Создает инлайн клавиатуру для /start, проверка на готовность пользователя пройти дальнейшие действия
     """
 
-    ikb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text='Кнопка 1', callback_data='btn_1'),]
-    ])
+    ikb = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Ready?', callback_data='user_ready'), ]])
 
     return ikb

@@ -1,21 +1,28 @@
-from aiogram import types, Dispatcher
-from aiogram.filters import Command
+from aiogram import types, Router
+from aiogram.dispatcher import router
+from aiogram.filters import CommandStart
 
-from TP_parser_bot.keyboards.user_keyboards import get_main_keyboard
+from TP_parser_bot.keyboards.user_keyboards import get_ready_keyboard  # импорт инлайн клавы
+
+router = Router()
 
 
-async def on_startup(msg: types.Message) -> None:
-    """Точка входа нового пользователя, стартовое поведение бота
-    """
-    reply_text = 'Привет, это начальный текст\n'
-
-    await msg.answer(
-        text=reply_text,
-        reply_markup=get_main_keyboard()
+@router.message(CommandStart())
+async def welcome(message: types.Message):
+    await message.answer(
+        text="РАСПИСАТЬ: Вводное сообщение, информирование юзера, проверка готовности",
+        reply_markup=get_ready_keyboard()
     )
 
-def register_user_handlers(dp: Dispatcher) -> None:
-    """Регистрирует user хендлеры
-    """
 
-    dp.message.register(on_startup, Command(commands=['start', 'help']))
+@router.callback_query()
+async def check_ready(callback: types.CallbackQuery):
+    """ Удаляет стартовое сообщение бота + здесь нужно будет вызвать ф-ию регистрации/
+    валидации юзера, как студента для получения доступа к функционалу бота
+    """
+    await callback.message.answer(text="Я сейчас удалю сообщение выше")
+    await callback.message.delete()
+
+
+def setup_handlers(dispatcher) -> None:
+    dispatcher.include_router(router)
