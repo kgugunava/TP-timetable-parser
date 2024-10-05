@@ -1,6 +1,6 @@
 import pandas as pd
 import re
-table = pd.read_excel('timetable.xlsx',skiprows=10,header=None)
+table = pd.read_excel('timetable.xlsx',skiprows=10,header=None,keep_default_na=False)
 #чтение таблички в dataframe(объект из библиотеки pandas) (пропускаем шапку таблички, заголовков для столбцов нет, пропускаем невычисляемы/безтиповые значения)
 grouprow=[[4, 5],[7,8],[10,11],[16,17],[19,20],[22,23],[28,29],[31,32],[34,35]]
 #для каждой группы прописывам в каких столбцах лежит расписание

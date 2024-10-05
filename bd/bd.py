@@ -8,7 +8,7 @@ try:
                                   port="5432",
                                   database="timetable")
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM students LIMIT 3")
+    cursor.execute("SELECT * FROM students WHERE groupname=9")
     record = cursor.fetchall()
     for i in record:
         print(i)
