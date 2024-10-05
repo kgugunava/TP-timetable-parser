@@ -1,4 +1,4 @@
-from aiogram import types, Router
+from aiogram import types, Router, F
 from aiogram.dispatcher import router
 from aiogram.filters import CommandStart
 
@@ -15,7 +15,7 @@ async def welcome(message: types.Message):
     )
 
 
-@router.callback_query()
+@router.callback_query(F.data == "user_ready")
 async def check_ready(callback: types.CallbackQuery):
     """ Удаляет стартовое сообщение бота + здесь нужно будет вызвать ф-ию регистрации/
     валидации юзера, как студента для получения доступа к функционалу бота
