@@ -13,5 +13,8 @@ class GetDownloadFile:
         response = requests.get(final_url)
         download_url = response.json()['href']
         download_response = requests.get(download_url)
-        with open('downloaded_file.xlsx', 'wb') as f:
+        with open('timetable.xlsx', 'wb') as f:
             f.write(download_response.content)
+
+downloader = GetDownloadFile()
+downloader.download()
