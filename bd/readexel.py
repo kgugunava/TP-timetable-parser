@@ -17,14 +17,31 @@ for group in range(9):
             s=row[x]
             kb=row[y].replace('\n','').split('------')
             s= re.sub(r'(?<=[0-9])(\.) |(?<=[0-9])(\.),','.2024 ',s)
-            s=re.sub(r'\n(?!\n)',' ',s)
+            s=re.sub(r'\n',' ',s)
             s=re.sub('  ',' ',s)
-            s=re.split("\n|---------------------",s)
+            s=re.split("---------------------|\n",s)
             lesson=[]
             for i in range(len(s)):
-                lesson+= [re.split(r' - | (?=[А-Я][^(/.)])',s[i])]
+                if s[i]==' ':
+                    lesson+=[None]
+                else:
+                    lesson+= [re.split(r' - | (?=[А-Я][^(/.)])',s[i])]
             # с помощью регулярных выражений разбиваем строчки с расписанием на нужные категории
-            print(day,time,lesson,kb)
+            kabinet=[]
+            building=[]
+            for i in range(len(kb)):
+                if 'online' not in kb[i]:
+                    if len(kb[i])>1:
+                        kabinet+=[kb[i].split(' - ')[0]]
+                        building+=[kb[i].split(' - ')[1]]
+                    else:
+                        kabinet+=[None]
+                        building += [None]
+                else:
+                    kabinet+=['online']
+                    building += [None]
+            
+            print(time, day, lesson, kabinet, building)
     print('\n\n\n')
 
         
