@@ -1,5 +1,6 @@
 import pandas as pd
 import re
+from CONFIG import *
 
 
 class SplittingLessons():  # класс, для разбиения предмета на необходимые нам переменные
