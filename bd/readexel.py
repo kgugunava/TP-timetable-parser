@@ -8,12 +8,22 @@ class SplittingLessons():  # класс, для разбиения предме�
     name_of_lesson = ''
     type_of_lesson = ''  # семинар / лекция / практическое занятие
     teacher = ''
+    classroom = ''
+    campus = ''
+    day = ''
+    time = ''
+
 
     def __init__(self, lesson):
         self.lesson = lesson
 
+    def __str__(self):
+        return f'{self.day} {self.time} {self.name_of_lesson} {self.type_of_lesson} {self.teacher} {self.campus} {self.classroom}'
+
     def get_name_of_lesson(self):
         for cur in self.lesson:  # заходим в текущий массив с массивами (lesson)
+            if cur == None: # обрабатываем None, чтобы не было ошибки
+                continue
             for cur_lesson in cur:  # перебираем его элементы
                 if cur_lesson in list_of_all_lessons:
                     self.name_of_lesson += cur_lesson + ' '
@@ -21,13 +31,19 @@ class SplittingLessons():  # класс, для разбиения предме�
 
     def get_type_of_lesson(self):
         for cur in self.lesson:
+            if cur == None: # обрабатываем None, чтобы не было ошибки
+                continue
             for cur_lesson in cur:
                 if cur_lesson in list_of_all_types_of_lessons:
                     self.type_of_lesson = cur_lesson
         return self.type_of_lesson
 
     def get_teacher(self):
-        pass
+        for cur in self.lesson:
+            if cur == None:
+                continue
+            self.teacher = cur[-1]
+        return self.teacher
 
 
 table = pd.read_excel('timetable.xlsx', skiprows=10, header=None, keep_default_na=False)
@@ -71,5 +87,16 @@ for group in range(9):
                     kabinet += ['online']
                     building += [None]
 
-            print(time, day, lesson, kabinet, building)
+            # print(lesson) # вывод предмета до разбиения
+            cur_lesson = SplittingLessons(lesson)
+            cur_lesson.get_name_of_lesson()
+            cur_lesson.get_type_of_lesson()
+            cur_lesson.get_teacher()
+            cur_lesson.day = day
+            cur_lesson.time = time
+            if len(list(filter(lambda x: x != None, kabinet))) != 0: # если массив состоит только из None, значение аудитории останется пустым
+                cur_lesson.classroom = list(filter(lambda x: x != None, kabinet))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
+            if len(list(filter(lambda x: x != None, building))) != 0: # если массив состоит только из None, значение корпуса останется пустым
+                 cur_lesson.campus = list(filter(lambda x: x != None, building))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
+            print(cur_lesson) # вывод предмета после разбиения
     print('\n\n\n')
