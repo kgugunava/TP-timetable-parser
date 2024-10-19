@@ -1,7 +1,19 @@
 import pandas as pd
 import re
 from CONFIGbd import *
+import psycopg2
 
+# подключение к БД
+conn = psycopg2.connect(database="timetable",
+            user="postgres",
+            password="kirillgugunava123",
+            host="127.0.0.1",
+            port=5432)
+
+cur = conn.cursor()
+
+flag = 1
+cur_number_id = 1
 
 class SplittingLessons():  # класс, для разбиения предмета на необходимые нам переменные
 
@@ -112,6 +124,17 @@ for group in range(9):
                 cur_lesson.classroom = list(filter(lambda x: x != None, kabinet))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
             if len(list(filter(lambda x: x != None, building))) != 0: # если массив состоит только из None, значение корпуса останется пустым
                  cur_lesson.campus = list(filter(lambda x: x != None, building))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
-            print(cur_lesson) # вывод предмета после разбиения
+            # print(cur_lesson) # вывод предмета после разбиения
+
+            cur.execute(
+                '''
+                    INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ''',
+                (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 0)
+            )
+            conn.commit()
+            cur_number_id += 1
             cur_lesson.refresh()
     print('\n\n\n')
+
+conn.close()
