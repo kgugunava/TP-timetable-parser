@@ -12,8 +12,7 @@ conn = psycopg2.connect(database="timetable",
 
 cur = conn.cursor()
 
-flag = 1
-cur_number_id = 1
+cur_number_id = 1 # для нумерования столбцов в БД
 
 class SplittingLessons():  # класс, для разбиения предмета на необходимые нам переменные
 
@@ -128,9 +127,9 @@ for group in range(9):
 
             cur.execute(
                 '''
-                    INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 ''',
-                (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 0)
+                (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 0, cur_lesson.type_of_lesson)
             )
             conn.commit()
             cur_number_id += 1
