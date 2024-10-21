@@ -65,6 +65,51 @@ async def price(message: types.Message):
                            reply_markup=keyboard)
 
 
+
+@dp.callback_query_handler(text=['pot_1', 'pot_2', 'pot_3'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'pot_1':
+        await call.message.answer(text="Какая у тебя группа?",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=pot_1_gr())
+    elif call.data == 'pot_2':
+        await call.message.answer(text="Какая у тебя группа?",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=pot_2_gr())
+
+    else:
+        await call.message.answer(text="Какая у тебя группа?",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=pot_3_gr())
+
+def pot_1_gr():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='24КНТ-1', callback_data='pot1_gr1')
+    btn2 = InlineKeyboardButton(text='24КНТ-2', callback_data='pot1_gr2')
+    btn3 = InlineKeyboardButton(text='24КНТ-3', callback_data='pot1_gr3')
+    kb.add(btn1, btn2, btn3)
+    return kb
+
+def pot_2_gr():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='24КНТ-4', callback_data='pot2_gr4')
+    btn2 = InlineKeyboardButton(text='24КНТ-5', callback_data='pot2_gr5')
+    btn3 = InlineKeyboardButton(text='24КНТ-6', callback_data='pot2_gr6')
+    kb.add(btn1, btn2, btn3)
+    return kb
+
+def pot_3_gr():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='24КНТ-7', callback_data='pot3_gr7')
+    btn2 = InlineKeyboardButton(text='23КНТ-8', callback_data='pot3_gr8')
+    btn3 = InlineKeyboardButton(text='24КНТ-9', callback_data='pot3_gr9')
+    kb.add(btn1, btn2, btn3)
+    return kb
+
+
+
+
+
 def manager_kb():
     kb = InlineKeyboardMarkup()
     btn = InlineKeyboardButton(text="Чат с менеджером", callback_data='manager', url='http://t.me/deccersw')
