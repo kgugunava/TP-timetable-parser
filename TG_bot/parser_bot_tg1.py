@@ -63,3 +63,13 @@ async def price(message: types.Message):
                            text="Выбери свой поток:",
                            parse_mode=ParseMode.MARKDOWN,
                            reply_markup=keyboard)
+
+
+def manager_kb():
+    kb = InlineKeyboardMarkup()
+    btn = InlineKeyboardButton(text="Чат с менеджером", callback_data='manager', url='http://t.me/deccersw')
+    kb.add(btn)
+    return kb
+
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
