@@ -4,9 +4,9 @@ from CONFIGbd import *
 import psycopg2
 
 # подключение к БД
-conn = psycopg2.connect(database="timetable",
+conn = psycopg2.connect(database="postgres",
             user="postgres",
-            password="kirillgugunava123",
+            password="knt9",
             host="127.0.0.1",
             port=5432)
 
@@ -82,9 +82,12 @@ for group in range(9):
             # проверка на пустые строчки
             time = row[2]
             s = row[x]
-            kb = row[y].replace('\n', '').split('------')
+            print(s)
+            kb = row[y].replace('\n', '---------------------').split('------')
+            print(s)
             s = re.sub(r'(?<=[0-9])(\.) |(?<=[0-9])(\.),', '.2024 ', s)
             s = re.sub(r'\n', ' ', s)
+            
             s = re.sub('  ', ' ', s)
             s = re.split("---------------------|\n", s)
             lesson = []
@@ -93,6 +96,7 @@ for group in range(9):
                     lesson += [None]
                 else:
                     lesson += [re.split(r' - | (?=[А-Я][^(/.)])', s[i])]
+            print(s) 
             # с помощью регулярных выражений разбиваем строчки с расписанием на нужные категории
             kabinet = []
             building = []
@@ -108,7 +112,8 @@ for group in range(9):
                     kabinet += ['online']
                     building += [None]
 
-            # print(lesson) # вывод предмета до разбиения
+            
+            # вывод предмета до разбиения
             cur_lesson = SplittingLessons(lesson)
             cur_lesson.get_name_of_lesson()
             cur_lesson.get_type_of_lesson()
@@ -123,17 +128,17 @@ for group in range(9):
                 cur_lesson.classroom = list(filter(lambda x: x != None, kabinet))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
             if len(list(filter(lambda x: x != None, building))) != 0: # если массив состоит только из None, значение корпуса останется пустым
                  cur_lesson.campus = list(filter(lambda x: x != None, building))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
-            # print(cur_lesson) # вывод предмета после разбиения
-
-            cur.execute(
-                '''
-                    INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                ''',
-                (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 0, cur_lesson.type_of_lesson)
-            )
-            conn.commit()
-            cur_number_id += 1
-            cur_lesson.refresh()
+            # вывод предмета после разбиения 
+            # print(cur_lesson.date)
+            # cur.execute(
+            #     '''
+            #         INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            #     ''',
+            #     (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 0, cur_lesson.type_of_lesson)
+            # )
+            # conn.commit()
+            # cur_number_id += 1
+            # cur_lesson.refresh()
     print('\n\n\n')
 
 conn.close()
