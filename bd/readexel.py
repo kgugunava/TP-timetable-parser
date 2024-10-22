@@ -83,21 +83,21 @@ for group in range(9):
             # проверка на пустые строчки
             time = row[2]
             s = row[x]
-            print(s)
             kb = row[y].replace('\n', '---------------------').split('------')
-            print(s)
             s = re.sub(r'(?<=[0-9])(\.) |(?<=[0-9])(\.),', '.2024 ', s)
-            s = re.sub(r'\n', ' ', s)
-            
-            s = re.sub('  ', ' ', s)
-            s = re.split("---------------------|\n", s)
+            # print(s) 
+            s=re.sub('\n\n(?![0-9])','',s)  
+            # print(s)  ---------------------
+            s=re.split("---------------------\n|---------------------|\n\n",s)
             lesson = []
+            # print(s)
             for i in range(len(s)):
-                if s[i] == ' ' or s[i] =='':
+                if len(s[i])<=3:
                     lesson += [None]
                 else:
-                    lesson += [re.split(r' - | (?=[А-Я][^(/.)])', s[i])]
-            print(s) 
+                    mas=str(re.sub('\n',' ',s[i]))
+                    lesson +=[re.split(r' -  | - |(?<=[0-9]) (?= [А-Я]|[А-Я])|(?:(?<=лекция)|(?<=семинар)) ', mas)]
+            print(lesson)
             # с помощью регулярных выражений разбиваем строчки с расписанием на нужные категории
             kabinet = []
             building = []
@@ -111,9 +111,8 @@ for group in range(9):
                         building += [None]
                 else:
                     kabinet += ['online']
-                    building += [None]
+                    building += [None]  
 
-            
             # вывод предмета до разбиения
             cur_lesson = SplittingLessons(lesson)
             cur_lesson.get_name_of_lesson()
@@ -137,7 +136,7 @@ for group in range(9):
                  cur_lesson.campus = list(filter(lambda x: x != None, building))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
             if cur_number_id == 18 or cur_number_id == 56 or cur_number_id == 73 or cur_number_id == 91 or cur_number_id == 111 or cur_number_id == 129 or cur_number_id == 147:
                 cur_lesson.name_of_lesson = ['Основы российской государственности']
-            print(cur_lesson, cur_number_id) # вывод предмета после разбиения
+            # print(cur_lesson, cur_number_id)вывод предмета после разбиения
 
             if len(cur_lesson.name_of_lesson) > 1 and cur_lesson.name_of_lesson != ['История', 'России']:
                 if cur_lesson.type_of_lesson == []:
