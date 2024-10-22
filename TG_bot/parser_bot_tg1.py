@@ -160,7 +160,348 @@ async def first_btn_process(call: types.CallbackQuery):
         await call.message.answer(text="Лови расписание",
                                   parse_mode=ParseMode.MARKDOWN)
 
+#Расписание ГРУППА 2
 
+def ned_1_2():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='Расписание на всю неделю', callback_data='ful_1_2')
+    btn2 = InlineKeyboardButton(text='ПН', callback_data='mon_1_2')
+    btn3 = InlineKeyboardButton(text='ВТ', callback_data='tue_1_2')
+    btn4 = InlineKeyboardButton(text='СР', callback_data='wed_1_2')
+    btn5 = InlineKeyboardButton(text='ЧТ', callback_data='th_1_2')
+    btn6 = InlineKeyboardButton(text='ПТ', callback_data='fr_1_2')
+    btn7 = InlineKeyboardButton(text='СБ', callback_data='su_1_2')
+    kb.add(btn2, btn3, btn4, btn5, btn6, btn7, btn1)
+    return kb
+
+@dp.callback_query_handler(text=['ful_1_2', 'mon_1_2', 'tue_1_2', 'wed_1_2', 'th_1_2', 'fr_1_2', 'su_1_2'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'ful_1_2':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'mon_1_2':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'tue_1_2':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'wed_1_2':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'th_1_2':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'fr_1_2':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    else:
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+
+#Расписание ГРУППА 3
+
+def ned_1_3():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='Расписание на всю неделю', callback_data='ful_1_3')
+    btn2 = InlineKeyboardButton(text='ПН', callback_data='mon_1_3')
+    btn3 = InlineKeyboardButton(text='ВТ', callback_data='tue_1_3')
+    btn4 = InlineKeyboardButton(text='СР', callback_data='wed_1_3')
+    btn5 = InlineKeyboardButton(text='ЧТ', callback_data='th_1_3')
+    btn6 = InlineKeyboardButton(text='ПТ', callback_data='fr_1_3')
+    btn7 = InlineKeyboardButton(text='СБ', callback_data='su_1_3')
+    kb.add(btn2, btn3, btn4, btn5, btn6, btn7, btn1)
+    return kb
+
+@dp.callback_query_handler(text=['ful_1_3', 'mon_1_3', 'tue_1_3', 'wed_1_3', 'th_1_3', 'fr_1_3', 'su_1_3'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'ful_1_3':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'mon_1_3':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'tue_1_3':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'wed_1_3':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'th_1_3':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'fr_1_3':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    else:
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+
+@dp.callback_query_handler(text=['pot2_gr4', 'pot2_gr5', 'pot2_gr6'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'pot1_gr1':
+        await call.message.answer(text="Выберите день недели",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=ned_2_4())
+    elif call.data == 'pot1_gr2':
+        await call.message.answer(text="Выберите день недели",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=ned_2_5())
+
+    else:
+        await call.message.answer(text="Выберите день недели",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=ned_2_6())
+# Расписание ГРУППА 4
+
+def ned_2_4():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='Расписание на всю неделю', callback_data='ful_2_4')
+    btn2 = InlineKeyboardButton(text='ПН', callback_data='mon_2_4')
+    btn3 = InlineKeyboardButton(text='ВТ', callback_data='tue_2_4')
+    btn4 = InlineKeyboardButton(text='СР', callback_data='wed_2_4')
+    btn5 = InlineKeyboardButton(text='ЧТ', callback_data='th_2_4')
+    btn6 = InlineKeyboardButton(text='ПТ', callback_data='fr_2_4')
+    btn7 = InlineKeyboardButton(text='СБ', callback_data='su_2_4')
+    kb.add(btn2, btn3, btn4, btn5, btn6, btn7, btn1)
+    return kb
+
+
+@dp.callback_query_handler(text=['ful_2_4', 'mon_2_4', 'tue_2_4', 'wed_2_4', 'th_2_4', 'fr_2_4', 'su_2_4'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'ful_2_4':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'mon_2_4':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'tue_2_4':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'wed_2_4':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'th_2_4':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'fr_2_4':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    else:
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+
+
+# Расписание ГРУППА 5
+def ned_2_5():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='Расписание на всю неделю', callback_data='ful_2_5')
+    btn2 = InlineKeyboardButton(text='ПН', callback_data='mon_2_5')
+    btn3 = InlineKeyboardButton(text='ВТ', callback_data='tue_2_5')
+    btn4 = InlineKeyboardButton(text='СР', callback_data='wed_2_5')
+    btn5 = InlineKeyboardButton(text='ЧТ', callback_data='th_2_5')
+    btn6 = InlineKeyboardButton(text='ПТ', callback_data='fr_2_5')
+    btn7 = InlineKeyboardButton(text='СБ', callback_data='su_2_5')
+    kb.add(btn2, btn3, btn4, btn5, btn6, btn7, btn1)
+    return kb
+
+
+@dp.callback_query_handler(text=['ful_2_5', 'mon_2_5', 'tue_2_5', 'wed_2_5', 'th_2_5', 'fr_2_5', 'su_2_5'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'ful_2_5':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'mon_2_5':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'tue_2_5':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'wed_2_5':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'th_2_5':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'fr_2_5':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    else:
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+
+
+# Расписание ГРУППА 6
+
+def ned_2_6():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='Расписание на всю неделю', callback_data='ful_2_6')
+    btn2 = InlineKeyboardButton(text='ПН', callback_data='mon_2_6')
+    btn3 = InlineKeyboardButton(text='ВТ', callback_data='tue_2_6')
+    btn4 = InlineKeyboardButton(text='СР', callback_data='wed_2_6')
+    btn5 = InlineKeyboardButton(text='ЧТ', callback_data='th_2_6')
+    btn6 = InlineKeyboardButton(text='ПТ', callback_data='fr_2_6')
+    btn7 = InlineKeyboardButton(text='СБ', callback_data='su_2_6')
+    kb.add(btn2, btn3, btn4, btn5, btn6, btn7, btn1)
+    return kb
+
+
+@dp.callback_query_handler(text=['ful_2_6', 'mon_2_6', 'tue_2_6', 'wed_2_6', 'th_2_6', 'fr_2_6', 'su_2_6'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'ful_2_6':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'mon_2_6':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'tue_2_6':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'wed_2_6':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'th_2_6':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'fr_2_6':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    else:
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+
+@dp.callback_query_handler(text=['pot3_gr7', 'pot3_gr8', 'pot3_gr9'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'pot3_gr7':
+        await call.message.answer(text="Выберите день недели",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=ned_3_7())
+    elif call.data == 'pot3_gr8':
+        await call.message.answer(text="Выберите день недели",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=ned_3_8())
+
+    else:
+        await call.message.answer(text="Выберите день недели",
+                                  parse_mode=ParseMode.MARKDOWN,
+                                  reply_markup=ned_3_9())
+
+# Расписание ГРУППА 7
+
+def ned_3_7():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='Расписание на всю неделю', callback_data='ful_3_7')
+    btn2 = InlineKeyboardButton(text='ПН', callback_data='mon_3_7')
+    btn3 = InlineKeyboardButton(text='ВТ', callback_data='tue_3_7')
+    btn4 = InlineKeyboardButton(text='СР', callback_data='wed_3_7')
+    btn5 = InlineKeyboardButton(text='ЧТ', callback_data='th_3_7')
+    btn6 = InlineKeyboardButton(text='ПТ', callback_data='fr_3_7')
+    btn7 = InlineKeyboardButton(text='СБ', callback_data='su_3_7')
+    kb.add(btn2, btn3, btn4, btn5, btn6, btn7, btn1)
+    return kb
+
+
+@dp.callback_query_handler(text=['ful_3_7', 'mon_3_7', 'tue_3_7', 'wed_3_7', 'th_3_7', 'fr_3_7', 'su_3_7'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'ful_3_7':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'mon_3_7':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'tue_3_7':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'wed_3_7':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'th_3_7':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'fr_3_7':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    else:
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+
+
+# Расписание ГРУППА 8
+def ned_3_8():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='Расписание на всю неделю', callback_data='ful_3_8')
+    btn2 = InlineKeyboardButton(text='ПН', callback_data='mon_3_8')
+    btn3 = InlineKeyboardButton(text='ВТ', callback_data='tue_3_8')
+    btn4 = InlineKeyboardButton(text='СР', callback_data='wed_3_8')
+    btn5 = InlineKeyboardButton(text='ЧТ', callback_data='th_3_8')
+    btn6 = InlineKeyboardButton(text='ПТ', callback_data='fr_3_8')
+    btn7 = InlineKeyboardButton(text='СБ', callback_data='su_3_8')
+    kb.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
+    return kb
+
+
+@dp.callback_query_handler(text=['ful_3_8', 'mon_3_8', 'tue_3_8', 'wed_3_8', 'th_3_8', 'fr_3_8', 'su_3_8'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'ful_3_8':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'mon_3_8':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'tue_3_8':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'wed_3_8':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'th_3_8':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'fr_3_8':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    else:
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+
+
+# Расписание ГРУППА 9
+
+def ned_3_9():
+    kb = InlineKeyboardMarkup()
+    btn1 = InlineKeyboardButton(text='Расписание на всю неделю', callback_data='ful_3_9')
+    btn2 = InlineKeyboardButton(text='ПН', callback_data='mon_3_9')
+    btn3 = InlineKeyboardButton(text='ВТ', callback_data='tue_3_9')
+    btn4 = InlineKeyboardButton(text='СР', callback_data='wed_3_9')
+    btn5 = InlineKeyboardButton(text='ЧТ', callback_data='th_3_9')
+    btn6 = InlineKeyboardButton(text='ПТ', callback_data='fr_3_9')
+    btn7 = InlineKeyboardButton(text='СБ', callback_data='su_3_9')
+    kb.add(btn2, btn3, btn4, btn5, btn6, btn7, btn1)
+    return kb
+
+
+@dp.callback_query_handler(text=['ful_3_9', 'mon_3_9', 'tue_3_9', 'wed_3_9', 'th_3_9', 'fr_3_9', 'su_3_9'])
+async def first_btn_process(call: types.CallbackQuery):
+    if call.data == 'ful_3_9':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'mon_3_9':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'tue_3_9':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'wed_3_9':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'th_3_9':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    elif call.data == 'fr_3_9':
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
+    else:
+        await call.message.answer(text="Лови расписание",
+                                  parse_mode=ParseMode.MARKDOWN)
 
 
 def manager_kb():
