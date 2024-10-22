@@ -121,24 +121,32 @@ for group in range(9):
             cur_lesson.day = day
             cur_lesson.time = time
             if lesson[0] != None:
-                cur_lesson.date = lesson[0][0].split()
+                if lesson[0][0] == '10.09.2024 17.09.Технология программирования':
+                    cur_lesson.date = ['10.09.2024', '17.09.2024']
+                    cur_lesson.name_of_lesson = ['Технологии программирования']
+                else:
+                    if lesson[0][0] not in list_of_all_lessons:
+                        cur_lesson.date = lesson[0][0].split()
             else:
-                cur_lesson.date = lesson[1][0].split()
+                if lesson[1][0] not in list_of_all_lessons:
+                    cur_lesson.date = lesson[1][0].split()
             if len(list(filter(lambda x: x != None, kabinet))) != 0: # если массив состоит только из None, значение аудитории останется пустым
                 cur_lesson.classroom = list(filter(lambda x: x != None, kabinet))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
             if len(list(filter(lambda x: x != None, building))) != 0: # если массив состоит только из None, значение корпуса останется пустым
                  cur_lesson.campus = list(filter(lambda x: x != None, building))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
-            # вывод предмета после разбиения 
-            # print(cur_lesson.date)
-            # cur.execute(
-            #     '''
-            #         INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            #     ''',
-            #     (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 0, cur_lesson.type_of_lesson)
-            # )
-            # conn.commit()
-            # cur_number_id += 1
-            # cur_lesson.refresh()
+            if cur_number_id == 18 or cur_number_id == 56 or cur_number_id == 73 or cur_number_id == 91 or cur_number_id == 111 or cur_number_id == 129 or cur_number_id == 147:
+                cur_lesson.name_of_lesson = ['Основы российской государственности']
+            # print(cur_lesson, cur_number_id) # вывод предмета после разбиения
+
+            cur.execute(
+                '''
+                    INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ''',
+                (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 0, cur_lesson.type_of_lesson)
+            )
+            conn.commit()
+            cur_number_id += 1
+            cur_lesson.refresh()
     print('\n\n\n')
 
 conn.close()
