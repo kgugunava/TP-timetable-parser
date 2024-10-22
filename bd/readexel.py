@@ -116,14 +116,22 @@ for group in range(9):
             cur_lesson.day = day
             cur_lesson.time = time
             if lesson[0] != None:
-                cur_lesson.date = lesson[0][0].split()
+                if lesson[0][0] == '10.09.2024 17.09.Технология программирования':
+                    cur_lesson.date = ['10.09.2024', '17.09.2024']
+                    cur_lesson.name_of_lesson = ['Технологии программирования']
+                else:
+                    if lesson[0][0] not in list_of_all_lessons:
+                        cur_lesson.date = lesson[0][0].split()
             else:
-                cur_lesson.date = lesson[1][0].split()
+                if lesson[1][0] not in list_of_all_lessons:
+                    cur_lesson.date = lesson[1][0].split()
             if len(list(filter(lambda x: x != None, kabinet))) != 0: # если массив состоит только из None, значение аудитории останется пустым
                 cur_lesson.classroom = list(filter(lambda x: x != None, kabinet))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
             if len(list(filter(lambda x: x != None, building))) != 0: # если массив состоит только из None, значение корпуса останется пустым
                  cur_lesson.campus = list(filter(lambda x: x != None, building))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
-            # print(cur_lesson) # вывод предмета после разбиения
+            if cur_number_id == 18 or cur_number_id == 56 or cur_number_id == 73 or cur_number_id == 91 or cur_number_id == 111 or cur_number_id == 129 or cur_number_id == 147:
+                cur_lesson.name_of_lesson = ['Основы российской государственности']
+            # print(cur_lesson, cur_number_id) # вывод предмета после разбиения
 
             cur.execute(
                 '''
