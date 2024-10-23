@@ -4,9 +4,9 @@ from CONFIGbd import *
 import psycopg2
 
 # подключение к БД
-conn = psycopg2.connect(database="timetable",
+conn = psycopg2.connect(database="postgres",
             user="postgres",
-            password="kirillgugunava123",
+            password="knt9",
             host="127.0.0.1",
             port=5432)
 
@@ -85,7 +85,8 @@ for group in range(9):
             s = row[x]
             kb = row[y].replace('\n', '---------------------').split('------')
             # print(s) 
-            s = re.sub(r'(?<=[0-9])(\.) |(?<=[0-9])(\.)(?=-)|(?<=[0-9])(\.),', '.2024 ', s)
+            # s = re.sub(r'(?<=[0-9])(\.) |(?<=[0-9])(\.)(?=-)|(?<=[0-9])(\.),', '.2024 ', s)
+            s = re.sub(r'(?<=[0-9])[.], |(?<=[.][0-9][0-9]). |(?<=[.][0-9][0-9]).', '.2024 ', s)
             # print(s) 
             s=re.sub('\n\n(?![0-9])','',s)  
             # print(s)  
@@ -96,7 +97,7 @@ for group in range(9):
                 if len(s[i])<=3:
                     lesson += [None]
                 else:
-                    mas=str(re.sub('(?:(?<=- )|(?<= -)|(?<=-)|(?<=.))\n',' ',s[i]))
+                    mas=str(re.sub('(?:(?<=- )|(?<= -)|(?<=-)|(?<=[.]))\n',' ',s[i]))
                     lesson +=[re.split(r'\n| -  | - |(?<=[0-9]) (?= [А-Я]|[А-Я])|(?:(?<=лекция)|(?<=семинар)) ', mas)]
             print(lesson)
             # с помощью регулярных выражений разбиваем строчки с расписанием на нужные категории
@@ -121,16 +122,14 @@ for group in range(9):
             cur_lesson.get_teacher()
             cur_lesson.day = day
             cur_lesson.time = time
-            if lesson[0] != None:
-                if lesson[0][0] == '10.09.2024 17.09.Технология программирования':
-                    cur_lesson.date = ['10.09.2024', '17.09.2024']
-                    cur_lesson.name_of_lesson = ['Технологии программирования']
+            for i in range (len(lesson)):
+                if lesson[i] != None:
+                        if lesson[i][0] not in list_of_all_lessons:
+                            cur_lesson.date .append(lesson[i][0].split())
+                        else:
+                            cur_lesson.date .append('{}')
                 else:
-                    if lesson[0][0] not in list_of_all_lessons:
-                        cur_lesson.date = lesson[0][0].split()
-            else:
-                if lesson[1][0] not in list_of_all_lessons:
-                    cur_lesson.date = lesson[1][0].split()
+                    cur_lesson.date .append("null")
             if len(list(filter(lambda x: x != None, kabinet))) != 0: # если массив состоит только из None, значение аудитории останется пустым
                 cur_lesson.classroom = list(filter(lambda x: x != None, kabinet))[0] # избавляюсь от элементов None и вывожу первый (и единственный) элемент массива
             if len(list(filter(lambda x: x != None, building))) != 0: # если массив состоит только из None, значение корпуса останется пустым
@@ -163,14 +162,14 @@ for group in range(9):
                     '''
                         INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ''',
-                    (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson[0], cur_lesson.teacher[0], cur_lesson.classroom, cur_lesson.campus, 0, cur_lesson.type_of_lesson[0])
+                    (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date[0], cur_lesson.day, cur_lesson.name_of_lesson[0], cur_lesson.teacher[0], cur_lesson.classroom, cur_lesson.campus, 0, cur_lesson.type_of_lesson[0])
                 )
                 cur_number_id += 1
                 cur.execute(
                     '''
                         INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ''',
-                    (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day,
+                    (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date[1], cur_lesson.day,
                      cur_lesson.name_of_lesson[1], cur_lesson.teacher[1], cur_lesson.classroom, cur_lesson.campus, 1,
                      cur_lesson.type_of_lesson[1])
                 )
@@ -181,7 +180,7 @@ for group in range(9):
                     '''
                         INSERT INTO timetable VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ''',
-                    (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date, cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 2, cur_lesson.type_of_lesson)
+                    (cur_number_id, group + 1, cur_lesson.time, cur_lesson.date[0], cur_lesson.day, cur_lesson.name_of_lesson, cur_lesson.teacher, cur_lesson.classroom, cur_lesson.campus, 2, cur_lesson.type_of_lesson)
                 )
             conn.commit()
             cur_number_id += 1
