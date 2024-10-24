@@ -1,10 +1,11 @@
 import psycopg2
 import datetime
-conn = psycopg2.connect(database="postgres",
-                        user="postgres",
-                        password="knt9",
-                        host="127.0.0.1",
-                        port="5432")
+import CONFIG
+conn = psycopg2.connect(database=CONFIG.DATABASE,
+                        user=CONFIG.USER,
+                        password=CONFIG.PASSWORD,
+                        host=CONFIG.HOST,
+                        port=CONFIG.PORT)
 
 class Funcbot():
 
@@ -29,8 +30,14 @@ class Funcbot():
             data = record[i][0]
             if  self.checkdata(data) :
                 for x in range(1,len(record[i])):
-                    if record[i][x] !='null':
-                        daylessons+=str(record[i][x])+' '
+                    if record[i][x] not in ['null','{',None]:
+                        if '{' in str(record[i][x]):
+                            if '"' in str(record[i][x]):
+                                daylessons+=str(record[i][x])[2:-2]+' '
+                            else:
+                                daylessons+=str(record[i][x])[1:-1]+' '
+                        else:
+                            daylessons+=str(record[i][x])+' '
                 if i !=len(record)-1:
                     daylessons+='\n'
         return daylessons
@@ -56,10 +63,7 @@ class Funcbot():
                 if i !=len(record)-1:
                     weeklessons+='\n' 
             if i !=len(record)-1 and record[i][0]!=record[i+1][0]:
-                weeklessons+='\v' 
-                weeklessons+=record[i+1][0]
-                weeklessons+='\n' 
-                
+                weeklessons+=f'\n\n{record[i+1][0]}\n' 
         return weeklessons
                 
     def checkdata(self,data):
@@ -75,8 +79,11 @@ class Funcbot():
                     return True
                 else:
                     return False
+            elif data[i][0]=='-':
+                data_= data[i][1:]
+                print(data_)
+                if datetime.datetime.strptime(data[i-1], '%d.%m.%Y') <= today and datetime.datetime.strptime(data_, '%d.%m.%Y') >= today:
+                    return True
             elif abs((today - datetime.datetime.strptime(data[i], '%d.%m.%Y')).days) <= datetime.datetime.today().weekday() or abs((today - datetime.datetime.strptime(data[i], '%d.%m.%Y')).days) <= datetime.datetime.today().weekday()-7:
                 return True
         return False
-user1=Funcbot(name = 'Владислав',surname='Сергеевич',lastname='Буровин',groupname=1)
-print(user1.weektimetable(1))
