@@ -9,18 +9,21 @@ conn = psycopg2.connect(database=CONFIG.DATABASE,
 
 class Funcbot():
 
-    def __init__(self,name,surname,lastname,groupname):
+    def __init__(self,name,surname,lastname):
         self.name =name
         self.surname = surname
         self.lastname = lastname
-        self.groupname = groupname
+        self.groupname = 0
     def checkuser(self):
         cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM students WHERE groupname={self.groupname} and lastname = '{self.lastname}' and surname ='{self.surname}' and name = '{self.name}'")
-        record = cursor.fetchall()
-        if record:
-            return True
-        return False
+        try :
+            cursor.execute(f"SELECT * FROM students WHERE lastname = '{self.lastname}' and surname ='{self.surname}' and name = '{self.name}'")
+            record = cursor.fetchall()
+            if record:
+                return True
+            return False
+        except:
+            return False
     def daytimetable(self,day,week):
         cursor = conn.cursor()
         cursor.execute(f"SELECT date, time, lesson, teacher, building, classroom, type_of_lesson FROM timetable WHERE groupname={self.groupname} and day = '{day}' and (week ='{week}' or week =2)")
@@ -81,9 +84,13 @@ class Funcbot():
                     return False
             elif data[i][0]=='-':
                 data_= data[i][1:]
-                print(data_)
                 if datetime.datetime.strptime(data[i-1], '%d.%m.%Y') <= today and datetime.datetime.strptime(data_, '%d.%m.%Y') >= today:
                     return True
             elif abs((today - datetime.datetime.strptime(data[i], '%d.%m.%Y')).days) <= datetime.datetime.today().weekday() or abs((today - datetime.datetime.strptime(data[i], '%d.%m.%Y')).days) <= datetime.datetime.today().weekday()-7:
                 return True
         return False
+    def addgroup(self,group):
+        self.groupname = group
+
+
+
