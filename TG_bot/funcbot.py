@@ -1,11 +1,11 @@
 import psycopg2
 import datetime
-import CONFIG
-conn = psycopg2.connect(database=CONFIG.DATABASE,
-                        user=CONFIG.USER,
-                        password=CONFIG.PASSWORD,
-                        host=CONFIG.HOST,
-                        port=CONFIG.PORT)
+from CONFIG import *
+conn = psycopg2.connect(database=DATABASE,
+                        user=USER,
+                        password=PASSWORD,
+                        host=HOST,
+                        port=PORT)
 
 class Funcbot():
 
@@ -26,7 +26,7 @@ class Funcbot():
             return False
     def daytimetable(self,day,week):
         cursor = conn.cursor()
-        cursor.execute(f"SELECT date, time, lesson, teacher, building, classroom, type_of_lesson FROM timetable WHERE groupname={self.groupname} and day = '{day}' and (week ='{week}' or week =2)")
+        cursor.execute(f"SELECT date, time, lesson, teacher, building, classroom, type_of_lesson FROM timetable WHERE groupname={self.groupname} and day = '{day}' and (week ='{week}' or week = 2) ORDER BY id;")
         record = cursor.fetchall()
         daylessons= ''
         for i in range(len(record)):
@@ -43,16 +43,18 @@ class Funcbot():
                             daylessons+=str(record[i][x])+' '
                 if i !=len(record)-1:
                     daylessons+='\n'
+        if daylessons == '':
+            daylessons = 'Поздравляю, в этот день пар нет'
         return daylessons
                 
     def weektimetable(self,week):
         cursor = conn.cursor()
-        cursor.execute(f"SELECT day, date, time, lesson, teacher, building, classroom, type_of_lesson FROM timetable WHERE groupname={self.groupname} and (week ='{week}' or week = 2)")
+        cursor.execute(f"SELECT day, date, time, lesson, teacher, building, classroom, type_of_lesson FROM timetable WHERE groupname={self.groupname} and (week ='{week}' or week = 2) ORDER BY id;")
         record = cursor.fetchall()
         weeklessons = ''
         weeklessons += 'Пн\n'  
         for i in range(len(record)):
-            data = record[i][1]
+            data = record[i][1] 
             if self.checkdata(data) :
                 for x in range(2,len(record[i])):
                     if record[i][x] not in ['null','{',None]:
@@ -66,6 +68,11 @@ class Funcbot():
                 if i !=len(record)-1:
                     weeklessons+='\n' 
             if i !=len(record)-1 and record[i][0]!=record[i+1][0]:
+                if record [i+1][0] == 'Пт':
+                    if record[i][0] == 'Ср':
+                        weeklessons+=f'\n\nЧт\nСмотри свое расписание Английского по группам\n' 
+                    else:
+                        weeklessons+=f'Смотри свое расписание Английского по группам\n\n{record[i+1][0]}\n\n' 
                 weeklessons+=f'\n\n{record[i+1][0]}\n' 
         return weeklessons
                 
@@ -91,6 +98,10 @@ class Funcbot():
         return False
     def addgroup(self,group):
         self.groupname = group
-
+def weekreload():
+    day1= datetime.datetime(2024,9,1)
+    day2 = datetime.datetime.today()
+    week = ((day2-day1).days//7)%2
+    return week
 
 

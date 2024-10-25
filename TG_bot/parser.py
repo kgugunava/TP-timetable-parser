@@ -16,5 +16,3 @@ class GetDownloadFile:
         with open('timetable.xlsx', 'wb') as f:
             f.write(download_response.content)
 
-downloader = GetDownloadFile()
-downloader.download()
