@@ -14,9 +14,9 @@ logging.basicConfig(level=logging.INFO)
 async def set_default_commands(bot: Bot):
     return await bot.set_my_commands(
         commands=[
-            BotCommand('start', 'Запустить бота'),
-            BotCommand('schedule', 'Расписание'),
-            BotCommand('manager', 'Задать вопрос'),
+            BotCommand('start', 'Перезапустить бота'),
+            # BotCommand('schedule', 'Расписание'),
+            # BotCommand('manager', 'Задать вопрос'),
         ],
         scope=BotCommandScopeDefault()
     )
@@ -29,19 +29,19 @@ async def command_start(message: types.Message):
                         reply_markup=kb)
     await set_default_commands(bot)
 
-@dp.message_handler(commands='manager')
+@dp.message_handler(text='Задать вопрос')
 async def command_manager(message: types.Message):
-    await message.reply('Если у Вас возникли вопросы, Вы можете задать их нам!',
+    await message.reply('Если у Вас возникли проблемы, Вы можете задать их нам!',
                         reply_markup=manager_kb())
 
 @dp.message_handler(text='⬅️Назад')
 async def chat(message: types.Message):
     await message.reply('Вы вернулись назад', reply_markup=kb)
 
-@dp.message_handler(text='Учебный календаь')
+@dp.message_handler(text='Учебный календарь')
 async def description(message: types.Message):
     await bot.send_photo(chat_id=message.chat.id,
-                         text="Лови",
+                        # text="Лови",
                          photo=photo_rasp,
                          reply_markup=kb,
                          parse_mode=ParseMode.MARKDOWN)
