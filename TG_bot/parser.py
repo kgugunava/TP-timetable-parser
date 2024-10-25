@@ -1,7 +1,8 @@
+# скачка таблицы с яндекс диска
 from urllib.parse import urlencode
 import requests
 from CONFIG import *
-
+# с помощью модуля  request делаем запрос к яндекс диску и загружаем табличку с расписанием
 class GetDownloadFile:
 
     def __init__(self):

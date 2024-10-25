@@ -14,6 +14,7 @@ class Funcbot():
         self.surname = surname
         self.lastname = lastname
         self.groupname = 0
+    #авторизация пользователя
     def checkuser(self):
         cursor = conn.cursor()
         try :
@@ -24,6 +25,7 @@ class Funcbot():
             return False
         except:
             return False
+    #отправка дневного расписания
     def daytimetable(self,day,week):
         cursor = conn.cursor()
         cursor.execute(f"SELECT date, time, lesson, teacher, building, classroom, type_of_lesson FROM timetable WHERE groupname={self.groupname} and day = '{day}' and (week ='{week}' or week = 2) ORDER BY id;")
@@ -46,7 +48,8 @@ class Funcbot():
         if daylessons == '':
             daylessons = 'Поздравляю, в этот день пар нет'
         return daylessons
-                
+
+    #отправка недельного расписания            
     def weektimetable(self,week):
         cursor = conn.cursor()
         cursor.execute(f"SELECT day, date, time, lesson, teacher, building, classroom, type_of_lesson FROM timetable WHERE groupname={self.groupname} and (week ='{week}' or week = 2) ORDER BY id;")
@@ -75,7 +78,8 @@ class Funcbot():
                         weeklessons+=f'Смотри свое расписание Английского по группам\n\n{record[i+1][0]}\n\n' 
                 weeklessons+=f'\n\n{record[i+1][0]}\n' 
         return weeklessons
-                
+
+    # проверка на наличие данного урока в выбранном дне\недели              
     def checkdata(self,data):
         if data=='null':
             return False
@@ -98,6 +102,8 @@ class Funcbot():
         return False
     def addgroup(self,group):
         self.groupname = group
+        
+#возвращение четной/нечетной недели
 def weekreload():
     day1= datetime.datetime(2024,9,1)
     day2 = datetime.datetime.today()

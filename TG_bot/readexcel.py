@@ -1,12 +1,13 @@
+#Разбивка таблицы на переменые и выгрузка их в бд
 import pandas as pd
 import re
 from CONFIG import *
 import psycopg2
 
 class SplittingLessons():  # класс, для разбиения предмета на необходимые нам переменные
-
+    #переменные, которые обновляют базу данных
     name_of_lesson = []
-    type_of_lesson = []  # семинар / лекция / практическое занятие
+    type_of_lesson = []  
     teacher = []
     classroom = ''
     campus = None
@@ -80,12 +81,8 @@ def updateexcel():
                 time = row[2]
                 s = row[x]
                 kb = row[y].replace('\n', '---------------------').split('------')
-                # print(s) 
-                # s = re.sub(r'(?<=[0-9])(\.) |(?<=[0-9])(\.)(?=-)|(?<=[0-9])(\.),', '.2024 ', s)
                 s = re.sub(r'(?<=[0-9])[.], |(?<=[.][0-9][0-9]). |(?<=[.][0-9][0-9]).', '.2024 ', s)
-                # print(s) 
                 s=re.sub('\n\n(?![0-9])','',s)  
-                # print(s)  
                 s=re.split("\n---------------------\n|\n---------------------|---------------------\n|---------------------|\n\n",s)
                 lesson = []
                 # print(s)
@@ -95,7 +92,6 @@ def updateexcel():
                     else:
                         mas=str(re.sub('(?:(?<=- )|(?<= -)|(?<=-)|(?<=[.]))\n',' ',s[i]))
                         lesson +=[re.split(r'\n| -  | - |(?<=[0-9]) (?= [А-Я]|[А-Я])|(?:(?<=лекция)|(?<=семинар)) ', mas)]
-                # print(lesson)
                 # с помощью регулярных выражений разбиваем строчки с расписанием на нужные категории
                 kabinet = []
                 building = []
@@ -150,8 +146,9 @@ def updateexcel():
 
                     if flag == 1:
                         flag = 0
-                        # continue
+
                     flag = 1 # эти уроки добавляли
+                    # выгрузка всего в бд
                     cur.execute(
                         '''
                             UPDATE timetable
@@ -171,8 +168,6 @@ def updateexcel():
                         cur_lesson.name_of_lesson[1], cur_lesson.teacher[1], cur_lesson.classroom, cur_lesson.campus, 1,
                         cur_lesson.type_of_lesson[1],cur_number_id )
                     )
-                    # cur_number_id += 1
-                    # conn.commit()
                 else:
                     cur.execute(
                         '''
